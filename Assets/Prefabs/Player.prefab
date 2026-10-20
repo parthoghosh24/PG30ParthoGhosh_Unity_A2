@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   jumpForce: 5
   moveSpeed: 5
+  jumpClip: {fileID: 8300000, guid: fe8682a8c1bff164ba90f9639cbd37d3, type: 3}
 --- !u!114 &3367186881880529571
 MonoBehaviour:
   m_ObjectHideFlags: 0

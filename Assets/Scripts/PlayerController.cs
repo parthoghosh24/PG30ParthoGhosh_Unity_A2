@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 5f;
 
+    [SerializeField]
+    private AudioClip jumpClip;
+
 
     private Camera _mainCamera;
 
@@ -35,7 +38,12 @@ public class PlayerController : MonoBehaviour
 
         if (_rb == null)
         {
-            Debug.Log("Rigid body not added. Ensure child has rigid body");
+            Debug.LogError("Rigid body not added. Ensure child has rigid body");
+        }
+
+        if (jumpClip == null)
+        {
+            Debug.LogError("Add jump audio clip");
         }
 
         _mainCamera = Camera.main;
@@ -45,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
 
         if (jump.isPressed)
-        {
+        {            
             _isJumping = true;
         }
     }
@@ -73,7 +81,16 @@ public class PlayerController : MonoBehaviour
         {            
             _groundContact--;
         }        
-    }    
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        IPickable pickable = other.GetComponent<IPickable>();
+
+        if (pickable != null) {
+            pickable.OnPick();
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -95,6 +112,10 @@ public class PlayerController : MonoBehaviour
         if (_isJumping && IsGrounded)
         {
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (jumpClip != null)
+            {
+                AudioSource.PlayClipAtPoint(jumpClip, transform.position);
+            }
         }
 
         _isJumping = false;
