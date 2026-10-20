@@ -6,6 +6,11 @@ If you reach to big flag, you win.
 
 Collect as many pickups to score big.
 
+## How to setup?
+
+Simply clone this project on your machine and ensure Unity is installed.
+
+Then load up the project using Unity.
 
 ## How to play?
 
